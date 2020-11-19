@@ -11,6 +11,7 @@ services:
             MYSQL_DATABASE: symfony
             MYSQL_USER: symfony
             MYSQL_PASSWORD: symfony
+            DATABASE_URL: symfony.localhost
         networks:
             - db
     php:
