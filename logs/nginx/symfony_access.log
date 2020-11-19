@@ -1,0 +1,2 @@
+172.25.0.1 - - [19/Nov/2020:09:58:56 +0000] "GET / HTTP/1.1" 504 562 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"
+172.25.0.1 - - [19/Nov/2020:09:59:04 +0000] "GET /favicon.ico HTTP/1.1" 404 41672 "http://symfony.localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"
