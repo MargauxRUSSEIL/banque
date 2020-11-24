@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -55,6 +57,18 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $gender;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CompteBancaire::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $compteBancaires;
+
+
+
+    public function __construct()
+    {
+        $this->compteBancaires = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -173,6 +187,36 @@ class User implements UserInterface
     public function setGender(string $gender): self
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CompteBancaire[]
+     */
+    public function getCompteBancaires(): Collection
+    {
+        return $this->compteBancaires;
+    }
+
+    public function addCompteBancaire(CompteBancaire $compteBancaire): self
+    {
+        if (!$this->compteBancaires->contains($compteBancaire)) {
+            $this->compteBancaires[] = $compteBancaire;
+            $compteBancaire->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompteBancaire(CompteBancaire $compteBancaire): self
+    {
+        if ($this->compteBancaires->removeElement($compteBancaire)) {
+            // set the owning side to null (unless already changed)
+            if ($compteBancaire->getUser() === $this) {
+                $compteBancaire->setUser(null);
+            }
+        }
 
         return $this;
     }

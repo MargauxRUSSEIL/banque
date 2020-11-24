@@ -33,6 +33,31 @@
     {{ include('user/_delete_form.html.twig') }}
 
     <h1>Mes comptes</h1>
+        {% if user.compteBancaires %} 
+            <table>
+                <tr>
+                    <th>IBAN</th>
+                    <th>Solde</th>
+                </tr>
+                {% for compteBancaires in user.compteBancaires %}
+                    <tr>
+                        <td>{{ compteBancaires.iban }}</td>
+                        <td>{{ compteBancaires.solde }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %} 
+        Vous n'avez pas de comptes bancaires. 
+        {% endif %}
 
+    <h1>Mes bénéficiaires</h1>
+        
+
+    <h1>Actions</h1>
+    <a href="">Ajouter un bénéficiaire</a>
+    <a href="">Faire une transaction</a>
+
+
+    <br/>
     <a href="{{ path('index') }}">Retour à la page d'accueil</a>
 {% endblock %}

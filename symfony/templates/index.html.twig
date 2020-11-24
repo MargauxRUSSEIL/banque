@@ -7,11 +7,15 @@
         <h1>Administrateur</h1>
             <a href="{{ path('app_register') }}">Ajouter un client</a>
             <a href="{{ path('user_index') }}">Liste des clients</a>
+            <br/>
+            <a href="{{ path('compte_bancaire_new') }}">Ajouter un compte bancaire</a>
+            <a href="{{ path('compte_bancaire_index') }}">Liste des comptes bancaires</a>
     {% endif %}
 
     <h1>Client</h1>
     <a href="{{ path('user_show', { 'id': app.user.id }) }}">{{ app.user.username }}</a>
     <a href="{{ path('app_logout') }}">Logout</a>
+    <br/>
 
     
 {% endblock %}
