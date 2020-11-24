@@ -63,11 +63,17 @@ class User implements UserInterface
      */
     private $compteBancaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Beneficiaire::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $beneficiaires;
+
 
 
     public function __construct()
     {
         $this->compteBancaires = new ArrayCollection();
+        $this->beneficiaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -215,6 +221,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($compteBancaire->getUser() === $this) {
                 $compteBancaire->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Beneficiaire[]
+     */
+    public function getBeneficiaires(): Collection
+    {
+        return $this->beneficiaires;
+    }
+
+    public function addBeneficiaire(Beneficiaire $beneficiaire): self
+    {
+        if (!$this->beneficiaires->contains($beneficiaire)) {
+            $this->beneficiaires[] = $beneficiaire;
+            $beneficiaire->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBeneficiaire(Beneficiaire $beneficiaire): self
+    {
+        if ($this->beneficiaires->removeElement($beneficiaire)) {
+            // set the owning side to null (unless already changed)
+            if ($beneficiaire->getUser() === $this) {
+                $beneficiaire->setUser(null);
             }
         }
 
