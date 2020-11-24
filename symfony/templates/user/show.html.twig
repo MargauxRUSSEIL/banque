@@ -3,44 +3,36 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <h1>Profil</h1>
+
+    <p>{% if user.gender != 'Autre' %}{{ user.gender }}{% endif %} {{ user.firstname }} {{ user.lastname }}</p>
+    <p>{% if user.gender == 'Madame' %}
+        Née
+        {% elseif user.gender == 'Monsieur' %}
+        Né
+        {% else %}
+        Né(e)
+        {% endif %}
+        le {{ user.birthday ? user.birthday|date('d F Y') : '' }}</p>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
             <tr>
                 <th>Username</th>
                 <td>{{ user.username }}</td>
             </tr>
             <tr>
                 <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Birthday</th>
-                <td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
+                <td>{% if user.username == 'admin'%}ADMIN {% else %} USER {% endif %}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('user_index') }}">back to list</a>
-
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+    <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier le profil</a>
 
     {{ include('user/_delete_form.html.twig') }}
+
+    <h1>Mes comptes</h1>
+
+    <a href="{{ path('index') }}">Retour à la page d'accueil</a>
 {% endblock %}

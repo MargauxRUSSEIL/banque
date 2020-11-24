@@ -3,6 +3,12 @@
 {% block title %}Index{% endblock %}
 
 {% block body %}
+    {% if app.user.username == 'admin' %}
+        <h1>Administrateur</h1>
+            <a href="{{ path('app_register') }}">Ajouter un user</a>
+    {% endif %}
 
+    <h1>Client</h1>
+    <a href="{{ path('user_show', { 'id': app.user.id }) }}">{{ app.user.username }}</a>
     
 {% endblock %}
