@@ -8,10 +8,8 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Username</th>
                 <th>Roles</th>
-                <th>Password</th>
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Birthday</th>
@@ -21,10 +19,8 @@
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
@@ -41,5 +37,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+    <a href="{{ path('app_register') }}">Ajouter un client</a>
+    <a href="{{ path('index') }}">Retour à la page d'accueil</a>
 {% endblock %}

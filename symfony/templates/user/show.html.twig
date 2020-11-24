@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <th>Roles</th>
-                <td>{% if user.username == 'admin'%}ADMIN {% else %} USER {% endif %}</td>
+                <td>{% if user.roles ? user.roles|json_encode : '' == '"ROLE_ADMIN","ROLE_USER"'%} ADMIN {% else %} USER {% endif %}</td>
             </tr>
         </tbody>
     </table>
