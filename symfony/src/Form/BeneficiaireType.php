@@ -21,7 +21,8 @@ class BeneficiaireType extends AbstractType
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'username'
+                'choice_label' => 'username',
+                'help' => 'Choisissez votre username'
             ])
         ;
     }
