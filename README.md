@@ -1,3 +1,17 @@
+Projet banque par Margaux RUSSEIL
+=============
+
+Projet universitaire en cours de symfony.
+
+Lors du démarrage du projet, penser à faire :
+```bash
+$ php bin/console doctrine:fixtures:load
+```
+Pour créer le compte admin (username et password dans le fichier `symfony/src/DataFixtures/ AppFixtures.php`).
+
+
+Documentation de base du repository git
+==============
 docker-symfony
 ==============
 
