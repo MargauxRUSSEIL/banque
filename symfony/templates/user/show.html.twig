@@ -23,14 +23,16 @@
             </tr>
             <tr>
                 <th>Roles</th>
-                <td>{% if 'ROLE_ADMIN' in user.roles ? user.roles|json_encode : '' %} ADMIN {% else %} USER {% endif %}</td>
+                <td>{% if 'ROLE_ADMIN' in user.roles ? user.roles|json_encode : '' %} ADMIN {% else %} CLIENT {% endif %}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier le profil</a>
+    {% if 'ROLE_ADMIN' in user.roles ? user.roles|json_encode : '' %}
+        <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier le profil</a>
 
-    {{ include('user/_delete_form.html.twig') }}
+        {{ include('user/_delete_form.html.twig') }}
+    {% endif %}
 
     <h1>Mes comptes</h1>
         {% set size1 = user.compteBancaires | length %}
@@ -38,12 +40,27 @@
             <table>
                 <tr>
                     <th>IBAN</th>
-                    <th>Solde</th>
+                    <th>Solde initial</th>
+                    <th>Solde actuel</th>
                 </tr>
                 {% for compteBancaires in user.compteBancaires %}
                     <tr>
                         <td>{{ compteBancaires.iban }}</td>
                         <td>{{ compteBancaires.solde }}</td>
+                        {% set size3 = compteBancaires.debits | length %}
+                        {% set size4 = compteBancaires.credits | length %}
+                        {% set sommeCredits = 0 %}
+                        {% set sommeDebits = 0 %}
+                        {% if size3 > 0 %}
+                            {% for debits in compteBancaires.debits %}
+                                {% set sommeDebits = sommeDebits + debits.montant %}
+                            {% endfor %}
+                        {% elseif size4 > 0 %} 
+                            {% for credits in compteBancaires.credits %}
+                                {% set sommeCredits = sommeCredits + credits.montant %}
+                            {% endfor %} 
+                        {% endif %}
+                        <td>{{ compteBancaires.solde - sommeDebits + sommeCredits }}</td>
                     </tr>
                 {% endfor %}
             </table>
@@ -57,12 +74,10 @@
             <table>
                 <tr>
                     <th>IBAN</th>
-                    <th>action</th>
                 </tr>
                 {% for beneficiaires in user.beneficiaires %}
                     <tr>
                         <td>{{ beneficiaires.compteBancaire.iban }}</td>
-                        <td><a href="{{ path('beneficiaire_show', {'id': beneficiaires.id}) }}">show</a></td>
                     </tr>
                 {% endfor %}
             </table>
@@ -71,10 +86,46 @@
         {% endif %}
         <a href="{{ path('beneficiaire_new') }}">Ajouter un bénéficiaire</a>
 
-    <h1>Actions</h1>
-    
-    <a href="">Faire une transaction</a>
+    <h1>Mes transactions</h1>
 
+    {% set size1 = user.compteBancaires | length %}
+    {% if size1 > 0 %} 
+        {% for compteBancaires in user.compteBancaires %}
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Montant</th>
+                    <th>Compte débité</th>
+                    <th>Compte crédité</th>
+                </tr>
+                {% set size3 = compteBancaires.debits | length %}
+                {% if size3 > 0 %}
+                    {% for debits in compteBancaires.debits %}
+                    <tr>
+                        <td>{{ debits.doneAt ? debits.doneAt|date('d/m/Y') : '' }}</td>
+                        <td>{{ debits.montant }}</td>
+                        <td>{{ debits.compteDebite.iban }}</td>
+                        <td>{{ debits.compteCredite.iban }}</td>
+                    </tr>
+                    {% endfor %}
+                {% set size4 = compteBancaires.credits | length %}        
+                {% elseif size4 > 0 %} 
+                    {% for credits in compteBancaires.credits %}
+                        <tr>
+                        <td>{{ credits.doneAt ? credits.doneAt|date('d/m/Y') : '' }}</td>
+                        <td>{{ credits.montant }}</td>
+                        <td>{{ credits.compteDebite.iban }}</td>
+                        <td>{{ credits.compteCredite.iban }}</td>
+                    </tr>
+                    {% endfor %}
+                {% elseif size3 <= 0 and size4 <= 0 %}
+                    Vous n'avez pas de transactions.  
+                {% endif %}
+            </table>
+        {% endfor %}  
+    {% endif %}  
+
+    <a href="{{ path('transaction_new') }}">Faire une transaction</a>
 
     <br/>
     <a href="{{ path('index') }}">Retour à la page d'accueil</a>

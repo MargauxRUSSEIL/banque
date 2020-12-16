@@ -39,7 +39,7 @@ class TransactionController extends AbstractController
             $entityManager->persist($transaction);
             $entityManager->flush();
 
-            return $this->redirectToRoute('transaction_index');
+            return $this->redirectToRoute('index');
         }
 
         return $this->render('transaction/new.html.twig', [

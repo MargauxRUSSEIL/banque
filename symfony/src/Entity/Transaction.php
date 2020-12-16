@@ -27,6 +27,18 @@ class Transaction
      */
     private $doneAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=CompteBancaire::class, inversedBy="credits")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $compteCredite;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CompteBancaire::class, inversedBy="debits")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $compteDebite;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +64,30 @@ class Transaction
     public function setDoneAt(\DateTimeInterface $doneAt): self
     {
         $this->doneAt = $doneAt;
+
+        return $this;
+    }
+
+    public function getCompteCredite(): ?CompteBancaire
+    {
+        return $this->compteCredite;
+    }
+
+    public function setCompteCredite(?CompteBancaire $compteCredite): self
+    {
+        $this->compteCredite = $compteCredite;
+
+        return $this;
+    }
+
+    public function getCompteDebite(): ?CompteBancaire
+    {
+        return $this->compteDebite;
+    }
+
+    public function setCompteDebite(?CompteBancaire $compteDebite): self
+    {
+        $this->compteDebite = $compteDebite;
 
         return $this;
     }

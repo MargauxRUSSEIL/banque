@@ -3,10 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Transaction;
+use App\Entity\CompteBancaire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TransactionType extends AbstractType
 {
@@ -18,6 +20,16 @@ class TransactionType extends AbstractType
             [
                 'years' => range(1940, 2020),
                 'format' => 'ddMMMMyyyy'
+            ])
+            ->add('compteDebite', EntityType::class, [
+                'class' => CompteBancaire::class,
+                'choice_label' => 'iban',
+                'help' => 'Votre compte à débiter'
+            ])
+            ->add('compteCredite', EntityType::class, [
+                'class' => CompteBancaire::class,
+                'choice_label' => 'iban',
+                'help' => 'Votre compte ou celui d\' un bénéficiaire à créditer'
             ])
         ;
     }
