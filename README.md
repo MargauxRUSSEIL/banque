@@ -4,7 +4,20 @@ Projet banque par Margaux RUSSEIL
 Projet universitaire en cours de symfony.
 
 Lors du démarrage du projet, penser à faire :
+
 ```bash
+$ yarn encore dev --watch
+```
+Pour pouvoir voir le projet avec le style.
+
+Avant de faire :
+```bash
+$ docker-compose up
+```
+
+Et :
+```bash
+$ php bin/console doctrine:migrations:migrate
 $ php bin/console doctrine:fixtures:load
 ```
 Pour créer le compte admin (username et password dans le fichier `symfony/src/DataFixtures/ AppFixtures.php`).
