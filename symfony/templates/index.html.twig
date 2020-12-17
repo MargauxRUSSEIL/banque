@@ -33,18 +33,8 @@
             {% endif %}
             le {{ app.user.birthday ? app.user.birthday|date('d F Y') : '' }}</p>
 
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Username</th>
-                    <td>{{ app.user.username }}</td>
-                </tr>
-                <tr>
-                    <th>Roles</th>
-                    <td>{% if 'ROLE_ADMIN' in app.user.roles ? app.user.roles|json_encode : '' %} ADMIN {% else %} CLIENT {% endif %}</td>
-                </tr>
-            </tbody>
-        </table>
+        <p><strong>Username : </strong>{{ app.user.username }}</p>
+        <p><strong>Roles : </strong>{% if 'ROLE_ADMIN' in app.user.roles ? app.user.roles|json_encode : '' %} ADMIN {% else %} CLIENT {% endif %}</p>
         <br/>
 
         {% if 'ROLE_ADMIN' in app.user.roles ? app.user.roles|json_encode : '' %}
@@ -58,7 +48,7 @@
         <h2>Mes comptes</h2>
             {% set size1 = app.user.compteBancaires | length %}
             {% if size1 > 0 %} 
-                <table>
+                <table class="table">
                     <tr>
                         <th>IBAN</th>
                         <th>Solde initial</th>
@@ -94,7 +84,7 @@
         <h2>Mes bénéficiaires</h2>
             {% set size2 = app.user.beneficiaires | length %}
             {% if size2 > 0 %} 
-                <table>
+                <table class="table">
                     <tr>
                         <th>IBAN</th>
                     </tr>
@@ -113,18 +103,23 @@
 
         <div class="transactions_controller">
         <h2>Mes transactions</h2>
-        {% set size1 = app.user.compteBancaires | length %}
-        {% if size1 > 0 %} 
+        {% set size5 = app.user.compteBancaires | length %}
+        {% if size5 > 0 %} 
             {% for compteBancaires in app.user.compteBancaires %}
-                <table>
+            {% set size6 = compteBancaires.debits | length %}
+            {% set size7 = compteBancaires.credits | length %}
+            {% if size6 > 0 or size7 > 0 %}
+                <table class="table">
                     <tr>
                         <th>Date</th>
                         <th>Montant</th>
                         <th>Compte débité</th>
                         <th>Compte crédité</th>
                     </tr>
-                    {% set size3 = compteBancaires.debits | length %}
-                    {% if size3 > 0 %}
+            {% else %}
+                <p>Vous n'avez pas de transactions.</p>
+            {% endif %}
+                    {% if size6 > 0 %}
                         {% for debits in compteBancaires.debits %}
                         <tr>
                             <td>{{ debits.doneAt ? debits.doneAt|date('d/m/Y') : '' }}</td>
@@ -133,8 +128,8 @@
                             <td>{{ debits.compteCredite.iban }}</td>
                         </tr>
                         {% endfor %}
-                    {% set size4 = compteBancaires.credits | length %}        
-                    {% elseif size4 > 0 %} 
+                    {% endif %}
+                    {% if size7 > 0 %} 
                         {% for credits in compteBancaires.credits %}
                             <tr>
                             <td>{{ credits.doneAt ? credits.doneAt|date('d/m/Y') : '' }}</td>
@@ -145,9 +140,7 @@
                         {% endfor %}  
                     {% endif %}
                 </table>
-            {% endfor %}
-        {% else %}
-                <p>Vous n'avez pas de transactions.</p>  
+            {% endfor %}  
         {% endif %}  
         <br/>
         <a class="btn" href="{{ path('transaction_new') }}">Faire une transaction</a>

@@ -3,9 +3,12 @@
 {% block title %}New Beneficiaire{% endblock %}
 
 {% block body %}
+<div class="form">
     <h1>Create new Beneficiaire</h1>
 
     {{ include('beneficiaire/_form.html.twig') }}
 
-    <a href="{{ path('index') }}">Retour à la page accueil</a>
+    <br/>
+    <a class="btn" href="{{ path('index') }}">Accueil</a>
+</div>
 {% endblock %}

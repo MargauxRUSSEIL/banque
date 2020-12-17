@@ -64,7 +64,7 @@ h1, h2 {
 
 }
 
-.login {
+.form {
     width: 50%;
     height: auto;
     margin: auto;
@@ -132,4 +132,30 @@ h1, h2 {
 .logout:hover, .logout:focus {
     background-color: whitesmoke;
     border: 1px solid #444444;
+}
+
+.index {
+    width: 70%;
+    height: auto;
+    background-color:  rgb(142, 193, 238);
+    margin: auto;
+    padding: 5%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead, th {
+    text-align: left;
+}
+
+td, th {
+    border: 1px solid #444444;
+    padding: 1%;
+}
+
+td a {
+    margin: 1%;
 }

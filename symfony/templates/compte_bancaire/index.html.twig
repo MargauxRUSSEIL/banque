@@ -3,12 +3,12 @@
 {% block title %}CompteBancaire index{% endblock %}
 
 {% block body %}
+<div class="index">
     <h1>CompteBancaire index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Iban</th>
                 <th>Solde</th>
                 <th>Propriétaire</th>
@@ -18,13 +18,12 @@
         <tbody>
         {% for compte_bancaire in compte_bancaires %}
             <tr>
-                <td>{{ compte_bancaire.id }}</td>
                 <td>{{ compte_bancaire.iban }}</td>
                 <td>{{ compte_bancaire.solde }}</td>
                 <td>{{ compte_bancaire.user.username }}</td>
                 <td>
-                    <a href="{{ path('compte_bancaire_show', {'id': compte_bancaire.id}) }}">show</a>
-                    <a href="{{ path('compte_bancaire_edit', {'id': compte_bancaire.id}) }}">edit</a>
+                    <a class="btn" href="{{ path('compte_bancaire_show', {'id': compte_bancaire.id}) }}">show</a>
+                    <a class="btn" href="{{ path('compte_bancaire_edit', {'id': compte_bancaire.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,6 +34,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('compte_bancaire_new') }}">Ajouter un compte bancaire</a>
-    <a href="{{ path('index') }}">Retour à la page d'accueil</a>
+    <br/>
+    <a class="btn" href="{{ path('compte_bancaire_new') }}">Ajouter un compte bancaire</a>
+    <a class="btn" href="{{ path('index') }}">Accueil</a>
+</div>
 {% endblock %}
