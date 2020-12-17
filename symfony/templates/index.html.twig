@@ -6,16 +6,20 @@
     <div class="admin_controller">
     {% if 'ROLE_ADMIN' in app.user.roles ? app.user.roles|json_encode : '' %}
         <h1>Administrateur</h1>
-            <a href="{{ path('app_register') }}">Ajouter un client</a>
-            <a href="{{ path('user_index') }}">Liste des clients</a>
+        <div class="actions_controller">
+            <a class="btn" href="{{ path('app_register') }}">Ajouter un client</a>
+            <a class="btn" href="{{ path('user_index') }}">Liste des clients</a>
             <br/>
-            <a href="{{ path('compte_bancaire_new') }}">Ajouter un compte bancaire</a>
-            <a href="{{ path('compte_bancaire_index') }}">Liste des comptes bancaires</a>
+            <a class="btn" href="{{ path('compte_bancaire_new') }}">Ajouter un compte bancaire</a>
+            <a class="btn" href="{{ path('compte_bancaire_index') }}">Liste des comptes bancaires</a>
+        </div>
     {% endif %}
     </div>
 
+    <div class="entete">
     <h1>Bienvenue {{ app.user.firstname }} {{ app.user.lastname }}</h1>
-    <a href="{{ path('app_logout') }}">Logout</a>
+    <a class="logout" href="{{ path('app_logout') }}">Logout</a>
+    </div>
     <div class="controllers">
         <div class="informations_controller">
         <h2>Informations</h2>
@@ -41,10 +45,11 @@
                 </tr>
             </tbody>
         </table>
+        <br/>
 
         {% if 'ROLE_ADMIN' in app.user.roles ? app.user.roles|json_encode : '' %}
-            <a href="{{ path('user_edit', {'id': app.user.id}) }}">Modifier le profil</a>
-
+            <a class="btn" href="{{ path('user_edit', {'id': app.user.id}) }}">Modifier le profil</a>
+            <br/>
             {{ include('user/_delete_form.html.twig') }}
         {% endif %}
         </div>
@@ -81,7 +86,7 @@
                     {% endfor %}
                 </table>
             {% else %} 
-            Vous n'avez pas de comptes bancaires. 
+                <p>Vous n'avez pas de comptes bancaires. </p>
             {% endif %}
         </div>
 
@@ -100,9 +105,10 @@
                     {% endfor %}
                 </table>
             {% else %} 
-            Vous n'avez pas de bénéficiaires. 
+                <p>Vous n'avez pas de bénéficiaires.</p> 
             {% endif %}
-            <a href="{{ path('beneficiaire_new') }}">Ajouter un bénéficiaire</a>
+            <br/>
+            <a class="btn" href="{{ path('beneficiaire_new') }}">Ajouter un bénéficiaire</a>
         </div>
 
         <div class="transactions_controller">
@@ -141,10 +147,10 @@
                 </table>
             {% endfor %}
         {% else %}
-                Vous n'avez pas de transactions.  
+                <p>Vous n'avez pas de transactions.</p>  
         {% endif %}  
-
-        <a href="{{ path('transaction_new') }}">Faire une transaction</a>
+        <br/>
+        <a class="btn" href="{{ path('transaction_new') }}">Faire une transaction</a>
         </div>
     </div>
     

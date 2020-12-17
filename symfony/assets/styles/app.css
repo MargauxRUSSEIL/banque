@@ -1,13 +1,33 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #444444;
+}
+
+a {
+    text-decoration: none;
 }
 
 .admin_controller {
     background-color: rgb(214, 135, 135);
     padding: 2%;
     margin-bottom: 2%;
-    width: 45%;
+    width: 65%;
     height: auto;
+}
+
+.actions_controller {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.actions_controller a {
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
+
+.entete {
+    display: flex;
+    justify-content: space-between;
 }
 
 .controllers {
@@ -42,4 +62,74 @@ h1, h2 {
 
 .transactions_controller {
 
+}
+
+.login {
+    width: 50%;
+    height: auto;
+    margin: auto;
+    margin-top: 10%;
+    padding: 4% 6%;
+    background-color: rgb(165, 228, 207);
+    display: block;
+    justify-content: center;
+}
+
+.message {
+    margin-bottom: 2%;
+}
+
+.btn {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    border: 1px solid white;
+    border-radius: 5% 5%;
+    background-color: white;
+    color: #444444;
+    padding: 1%;
+}
+
+.supp {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 1px solid #444444;
+    border-radius: 5% 5%;
+    color: #444444;
+    padding: 1%;
+    margin-top: 2%;
+}
+
+.logout {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 1px solid #444444;
+    border-radius: 5% 5%;
+    color: #444444;
+    padding: 1%;
+    margin-right: 2%;
+    height: fit-content;
+    width: fit-content;
+}
+
+.btn:hover, .btn:focus {
+    background-color: whitesmoke;
+    border: 1px solid whitesmoke;
+}
+
+.supp:hover, .supp:focus {
+    background-color: rgb(125, 170, 209);
+    border: 1px solid #444444;
+}
+
+.logout:hover, .logout:focus {
+    background-color: whitesmoke;
+    border: 1px solid #444444;
 }
