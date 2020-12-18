@@ -87,10 +87,12 @@
                 <table class="table">
                     <tr>
                         <th>IBAN</th>
+                        <th>Action</th>
                     </tr>
                     {% for beneficiaires in app.user.beneficiaires %}
                         <tr>
                             <td>{{ beneficiaires.compteBancaire.iban }}</td>
+                            <td><a class="btn" href="{{ path('beneficiaire_show', {'id': beneficiaires.id}) }}">Show</a></td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -98,7 +100,7 @@
                 <p>Vous n'avez pas de bénéficiaires.</p> 
             {% endif %}
             <br/>
-            <a class="btn" href="{{ path('beneficiaire_new') }}">Ajouter un bénéficiaire</a>
+            <a class="btn" href="{{ path('beneficiaire_new', {'id': app.user.id}) }}">Ajouter un bénéficiaire</a>
         </div>
 
         <div class="transactions_controller">

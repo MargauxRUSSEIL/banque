@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Beneficiaire;
+use App\Entity\User;
 use App\Form\BeneficiaireType;
 use App\Repository\BeneficiaireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +27,14 @@ class BeneficiaireController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="beneficiaire_new", methods={"GET","POST"})
+     * @Route("/new/user/{id}", name="beneficiaire_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(User $user, Request $request): Response
     {
+        $user = new User();
+        $user = $this->getUser();
         $beneficiaire = new Beneficiaire();
+        $beneficiaire->setUser($user);
         $form = $this->createForm(BeneficiaireType::class, $beneficiaire);
         $form->handleRequest($request);
 
@@ -44,6 +48,7 @@ class BeneficiaireController extends AbstractController
 
         return $this->render('beneficiaire/new.html.twig', [
             'beneficiaire' => $beneficiaire,
+            'user' => $user,
             'form' => $form->createView(),
         ]);
     }
