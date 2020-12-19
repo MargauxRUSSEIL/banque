@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Transaction;
+use App\Entity\User;
 use App\Form\TransactionType;
 use App\Repository\TransactionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +27,14 @@ class TransactionController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="transaction_new", methods={"GET","POST"})
+     * @Route("/new/user/{id}", name="transaction_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(User $user, Request $request): Response
     {
+        $user = new User();
+        $user = $this->getUser();
         $transaction = new Transaction();
+        $transaction->setUser($user);
         $form = $this->createForm(TransactionType::class, $transaction);
         $form->handleRequest($request);
 
@@ -44,6 +48,7 @@ class TransactionController extends AbstractController
 
         return $this->render('transaction/new.html.twig', [
             'transaction' => $transaction,
+            'user' => $user,
             'form' => $form->createView(),
         ]);
     }

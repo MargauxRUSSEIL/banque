@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Transaction;
 use App\Entity\CompteBancaire;
+use App\Repository\CompteBancaireRepository;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,6 +17,11 @@ class TransactionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'username',
+                'disabled' => 'true'
+            ])
             ->add('montant')
             ->add('doneAt', DateType::class,
             [

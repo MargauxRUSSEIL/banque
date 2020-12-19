@@ -118,8 +118,6 @@
                         <th>Compte débité</th>
                         <th>Compte crédité</th>
                     </tr>
-            {% else %}
-                <p>Vous n'avez pas de transactions.</p>
             {% endif %}
                     {% if size6 > 0 %}
                         {% for debits in compteBancaires.debits %}
@@ -142,10 +140,12 @@
                         {% endfor %}  
                     {% endif %}
                 </table>
-            {% endfor %}  
+            {% endfor %}
+        {% else %}
+            <p>Vous n'avez pas de transactions.</p>  
         {% endif %}  
         <br/>
-        <a class="btn" href="{{ path('transaction_new') }}">Faire une transaction</a>
+        <a class="btn" href="{{ path('transaction_new', {'id': app.user.id}) }}">Faire une transaction</a>
         </div>
     </div>
     

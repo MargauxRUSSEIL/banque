@@ -39,6 +39,12 @@ class Transaction
      */
     private $compteDebite;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="transactions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +94,18 @@ class Transaction
     public function setCompteDebite(?CompteBancaire $compteDebite): self
     {
         $this->compteDebite = $compteDebite;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
